@@ -40,14 +40,6 @@ spring:
                     binder:
                       brokers: localhost:9093
                       zkNodes: localhost:2181
-                      configuration:
-                        security.protocol: SSL
-                        ssl.keystore.location: /Users/z001txk/guardian/guardian_props/prod/prod-server.keystore.jks
-                        ssl.keystore.password: Guardian#123
-                        ssl.truststore.location: /Users/z001txk/guardian/guardian_props/prod/prod-client.truststore.jks
-                        ssl.truststore.password: Guardian#123
-                        key.serializer: org.apache.kafka.common.serialization.StringSerializer
-                        value.serializer: org.apache.kafka.common.serialization.StringSerializer
         kafka-output:
           type: kafka
           environment:
