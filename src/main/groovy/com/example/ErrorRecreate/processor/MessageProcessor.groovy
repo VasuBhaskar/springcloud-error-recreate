@@ -20,12 +20,10 @@ class MessageProcessor {
     @SendTo(OutputDestiny.OUTPUT)
     String processMessage(Message<String> event) {
         log.info('message' + event)
+        //populating the key as 1 just for testing purposes. I have tried with string values as well
         Message<String> outputMessage = MessageBuilder.withPayload(event.getPayload()).setHeader('myKey', 1).build()
         log.info('out' + outputMessage)
         return outputMessage
-
-//        JSONObject payload = parseStringIntoJson((String) message.getPayload())
-//        log.info(payload.toString())
 
     }
 }
