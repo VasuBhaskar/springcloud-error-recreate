@@ -1,0 +1,63 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        bindings:
+          input1:
+            consumer:
+              enableDlq: false
+              dlqName: test-dlq
+              maxPollRecords: 5
+              autoCommitOnError: true
+          output1:
+            producer:
+              sync: true
+              message-key-expression: headers['myKey']
+      bindings:
+        input1:
+          binder: kafka-input
+          group: test
+          destination: test-topic
+          contentType: text/plain
+          consumer:
+            instanceCount: 10
+            headerMode: raw
+            partitioned: true
+        output1:
+          binder: kafka-output
+          destination: test-output-topic
+          producer:
+            headerMode: raw
+            useNativeEncoding: true
+      binders:
+        kafka-input:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      brokers: localhost:9093
+                      zkNodes: localhost:2181
+                      configuration:
+                        security.protocol: SSL
+                        ssl.keystore.location: /Users/z001txk/guardian/guardian_props/prod/prod-server.keystore.jks
+                        ssl.keystore.password: Guardian#123
+                        ssl.truststore.location: /Users/z001txk/guardian/guardian_props/prod/prod-client.truststore.jks
+                        ssl.truststore.password: Guardian#123
+                        key.serializer: org.apache.kafka.common.serialization.StringSerializer
+                        value.serializer: org.apache.kafka.common.serialization.StringSerializer
+        kafka-output:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      minPartitionCount: 3
+                      brokers: localhost:9093
+                      zkNodes: localhost:2181
+server:
+  port: 8081
