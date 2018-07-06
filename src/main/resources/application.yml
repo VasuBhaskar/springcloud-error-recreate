@@ -12,7 +12,7 @@ spring:
           output1:
             producer:
               sync: true
-              message-key-expression: headers['myKey']
+              messageKeyExpression: headers['myKey']
       bindings:
         input1:
           binder: kafka-input
