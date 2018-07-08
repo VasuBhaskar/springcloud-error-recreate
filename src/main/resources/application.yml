@@ -24,7 +24,7 @@ spring:
             headerMode: raw
             partitioned: true
         output1:
-          binder: kafka-output
+          binder: kafka-input
           destination: test-output-topic
           producer:
             headerMode: raw
@@ -38,17 +38,6 @@ spring:
                 stream:
                   kafka:
                     binder:
-                      brokers: localhost:9093
-                      zkNodes: localhost:2181
-        kafka-output:
-          type: kafka
-          environment:
-            spring:
-              cloud:
-                stream:
-                  kafka:
-                    binder:
-                      minPartitionCount: 3
                       brokers: localhost:9093
                       zkNodes: localhost:2181
 server:
